@@ -1,16 +1,93 @@
-# React + Vite
+# Open Text Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight, pluggable React contentEditable rich text editor.
 
-Currently, two official plugins are available:
+Quick start and full usage are in `docs/USAGE.md`. Short summary:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Open Text Editor
 
-## React Compiler
+A lightweight, pluggable React contentEditable rich text editor.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Quick start and full usage are in [docs/USAGE.md](docs/USAGE.md). Below is a concise summary for using the `OpenTextEditor` component exported by this package.
 
-## Expanding the ESLint configuration
+**Install**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install open-text-editor-latest
+```
+
+**Peer dependencies**
+
+This package requires React as a peer dependency (supported: `^18 || ^19`). Install them if your project doesn't already include React:
+
+```bash
+npm install react@^18 react-dom@^18
+# or for React 19 consumers:
+npm install react@^19 react-dom@^19
+```
+
+**Basic usage**
+
+```jsx
+import React, { useRef } from 'react'
+import OpenTextEditor from 'open-text-editor-latest'
+
+function App(){
+	const editorRef = useRef(null)
+
+	return (
+		<OpenTextEditor
+			ref={editorRef}
+			initialValue={`<p>Hello from OpenTextEditor</p>`}
+			onChange={(html) => console.log('content changed', html)}
+			placeholder="Start typing..."
+		/>
+	)
+}
+
+export default App
+```
+
+**Imperative API (via `ref`)**
+
+The editor exposes useful helpers when mounted with `ref`:
+
+- `focus()` — focus the editor
+- `getHtml()` — return current editor HTML
+- `setHtml(html)` — replace editor content
+- `insertHtml(html)` — insert HTML at the current selection
+- `execCommand(command, value)` — run low-level `document.execCommand`
+- `insertTable(rows, cols)` — insert a table programmatically
+- `tableAction(action)` — run table actions when a table cell is active
+
+**Build and publish**
+
+To build the library bundles (ESM/CJS/UMD):
+
+```bash
+npm run build:lib
+```
+
+Create a local package tarball for testing:
+
+```bash
+npm pack
+```
+
+Publish to npm (when ready):
+
+```bash
+npm publish --access public
+```
+
+See [docs/USAGE.md](docs/USAGE.md) and [docs/PUBLISH.md](docs/PUBLISH.md) for more details on configuration, plugins and publishing.
+
+---
+
+Project files of interest:
+
+- `src/editor/OpentextEditor.jsx` — main editor component (default export `OpenTextEditor`).
+- `src/editor/plugins/` — plugin scaffolding and built-in plugin placeholders.
+- `build/vite.lib.config.js` — library build configuration used by `npm run build:lib`.
+
+If you'd like, I can wire the plugin registration API into the editor so built-in plugins are auto-registered.
