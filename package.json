@@ -1,17 +1,26 @@
 {
-  "name": "open-text-editor",
-  "private": true,
-  "version": "0.0.0",
+  "name": "open-text-editor-latest",
+  "private": false,
+  "version": "1.0.1",
   "type": "module",
+  "description": "A lightweight, pluggable React contentEditable rich text editor",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:lib": "vite build --config build/vite.lib.config.js",
+    "prepare": "npm run build:lib",
+    "prepublishOnly": "npm run build:lib",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "@tailwindcss/vite": "^4.1.18",
+    "lucide-react": "^0.563.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -23,5 +32,40 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "vite": "^7.2.4"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist/",
+    "src/editor/",
+    "README.md",
+    "docs/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danu20002/open-text-editor.git"
+  },
+  "keywords": [
+    "rich-text",
+    "editor",
+    "react",
+    "contenteditable",
+    "rte",
+    "plugins"
+  ],
+  "author": "danu20002",
+  "license": "MIT",
+  "homepage": "https://github.com/danu20002/open-text-editor#readme",
+  "bugs": {
+    "url": "https://github.com/danu20002/open-text-editor/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    }
   }
 }
