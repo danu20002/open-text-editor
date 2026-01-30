@@ -1,7 +1,7 @@
 {
   "name": "open-text-editor-latest",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.6",
   "type": "module",
   "description": "A lightweight, pluggable React contentEditable rich text editor",
   "scripts": {
